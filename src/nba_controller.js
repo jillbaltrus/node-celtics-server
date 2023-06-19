@@ -10,6 +10,8 @@ const NbaController = (app) => {
     app.get('/api/teams/stats/:teamId/:season', getTeamStatsByTeamAndSeason);
     app.get('/api/players/stats/:gameId', getPlayerStatsByGameId);
     app.get('/api/players/stats/:playerId/:season', getPlayerStatsByPlayerAndSeason);
+    app.get('/api/search/players/:teamId/:searchTerm', getPlayersByTeamAndSearch);
+    app.get('/api/search/players/:teamId/:season/:searchTerm', getPlayersByTeamSeasonAndSearch);
 }
 
 const getTeamById = async (req, res) => {
@@ -69,6 +71,21 @@ const getPlayerStatsByPlayerAndSeason = async (req, res) => {
     const season = req.params.season;
     const playerStats = await nbaApi.getPlayerStatsByPlayerAndSeason(playerId, season);
     res.json(playerStats.data.response);
+}
+
+const getPlayersByTeamAndSearch = async (req, res) => {
+    const searchTerm = req.params.searchTerm;
+    const teamId = req.params.teamId;
+    const players = await nbaApi.getPlayersByTeamAndSearch(teamId, searchTerm);
+    res.json(players.data.response);
+}
+
+const getPlayersByTeamSeasonAndSearch = async (req, res) => {
+    const searchTerm = req.params.searchTerm;
+    const teamId = req.params.teamId;
+    const season = req.params.season;
+    const players = await nbaApi.getPlayersByTeamSeasonAndSearch(teamId, season, searchTerm);
+    res.json(players.data.response);
 }
 
 export default NbaController

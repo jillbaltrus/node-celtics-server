@@ -130,3 +130,34 @@ export const getPlayerStatsByPlayerAndSeason = (playerId, season) => {
         },
     });
 }
+
+export const getPlayersByTeamAndSearch = (teamId, search) => {
+    return axios({
+        method: "GET",
+        url: BASE_URL + `/players`,
+        headers: {
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+            'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+        },
+        params: {
+            search: search,
+            team: teamId
+        },
+    });
+}
+
+export const getPlayersByTeamSeasonAndSearch = (teamId, season, search) => {
+    return axios({
+        method: "GET",
+        url: BASE_URL + `/players`,
+        headers: {
+            'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+            'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com'
+        },
+        params: {
+            search: search,
+            team: teamId,
+            season: season
+        },
+    });
+}
